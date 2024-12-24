@@ -23,9 +23,9 @@ class DeviceChangedCallback(COMObject):
 
     _com_interfaces_ = (IMMNotificationClient,)
 
-    def __init__(self, rendar_callback=None, capture_callback=None):
+    def __init__(self, render_callback=None, capture_callback=None):
         super().__init__()
-        self.rendar_callback  = rendar_callback  # callback function for render device
+        self.render_callback  = render_callback  # callback function for render device
         self.capture_callback = capture_callback # callback function for capture device
 
     def OnDefaultDeviceChanged(self, flow_id, role_id, default_device_id):
@@ -51,8 +51,8 @@ class DeviceChangedCallback(COMObject):
 
         if device_id.startswith(render):
             # render device
-            if self.rendar_callback:
-                self.rendar_callback(device_id, new_state_id)
+            if self.render_callback:
+                self.render_callback(device_id, new_state_id)
         elif device_id.startswith(capture):
             # capture device
             if self.capture_callback:
@@ -95,7 +95,7 @@ class VolumeChangedCallback(COMObject):
         ChannelVolumes = list(notify_data.afChannelVolumes)
         pass
         if self.callback:
-            # ChannnelVolumes is an array, and only nChannels elements are validated.
+            # ChannelVolumes is an array, and only nChannels elements are validated.
             self.callback(guid, bMuted, fMasterVolume, nChannels, ChannelVolumes[:nChannels])
         return S_OK
 

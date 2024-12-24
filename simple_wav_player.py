@@ -52,7 +52,7 @@ class MainWindow(tk.Frame):
         self.ca_audio_id_list = self.ca.audio_device_id_list() # Core Audio device ID List
         self.ca_selected_device_id = None                      # Selected Core Audio device ID
 
-        self.device_notification = DeviceChangedCallback(rendar_callback=self.device_changed_callback)
+        self.device_notification = DeviceChangedCallback(render_callback=self.device_changed_callback)
         self.ca.register_device_change_callback(self.device_notification)
         self.volume_notification = VolumeChangedCallback(self.volume_changed_callback)
 
@@ -179,7 +179,7 @@ class MainWindow(tk.Frame):
         self.volume_var.set(0)
         self.volume_scale = tk.Scale(parent, from_=0, to=100, variable=self.volume_var, resolution=1, showvalue=True, length=260, width=20, orient=tk.HORIZONTAL, command=self._on_volume)
         self.volume_scale.place(x=50, y=0)
-        # Disable controles
+        # Disable controls
         self.mute.config(state=tk.DISABLED)
         self.volume_scale.config(state=tk.DISABLED)
         pass
@@ -194,7 +194,7 @@ class MainWindow(tk.Frame):
         # Button : Stop
         self.stop_button = tk.Button(parent, image=self.icon_stop, command=self._on_stop)
         self.stop_button.place(x=180, y=0, width=40, height=40)
-        # Disable controles
+        # Disable controls
         self.play_button.config(state=tk.DISABLED)
         self.pause_button.config(state=tk.DISABLED)
         self.stop_button.config(state=tk.DISABLED)
@@ -228,7 +228,7 @@ class MainWindow(tk.Frame):
             # Selected device ID
             self.ca_selected_device_id = self.ca_audio_id_list[n]
 
-            # Enable controles
+            # Enable controls
             self.mute.config(state=tk.NORMAL)
             self.volume_scale.config(state=tk.NORMAL)
 
@@ -391,9 +391,9 @@ class MainWindow(tk.Frame):
 
         # _CAUTION_ : The following line causes deadlock, if it calls here
         # It's important to call it from idle timer.
-        # The _on_refresh_speaker_list() will try to release the Core Audio resouces.
+        # The _on_refresh_speaker_list() will try to release the Core Audio resources.
         # This function is called from the Core Audio.
-        # So, if it calls direcrly here, it causes deadlock.
+        # So, if it calls directly here, it causes deadlock.
         # self._on_refresh_speaker_list()
         self.after(100, self._on_refresh_speaker_list)
 

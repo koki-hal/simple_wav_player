@@ -6,7 +6,7 @@ import time
 
 class Play:
     PLAY = 1
-    PASUE = 2
+    PAUSE = 2
     STOP = 0
 
 
@@ -21,7 +21,7 @@ def _play_audio(device, wav_file, play, playing, event):
 
     ATTENTION:
         PyAudio (based on PortAudio) is not thread-safe.
-        Alse, Python is running under GIL.
+        Also, Python is running under GIL.
         If this function is running as a thread, it won't work correctly.
     """
 
@@ -52,7 +52,7 @@ def _play_audio(device, wav_file, play, playing, event):
     
     chunk = 2 ** 10
     data = wf.readframes(chunk)
-    stream_avairable = True
+    stream_available = True
     # print('Playing...') # _FOR_DEBUG_
     while data:
         try:
@@ -60,7 +60,7 @@ def _play_audio(device, wav_file, play, playing, event):
 
             if play.value == Play.PLAY:
                 pass
-            elif play.value == Play.PASUE:
+            elif play.value == Play.PAUSE:
                 # continue
                 pass
             elif play.value == Play.STOP:
@@ -71,14 +71,14 @@ def _play_audio(device, wav_file, play, playing, event):
         except OSError as e:
             # stream can't be used anymore
             # possibly, the device is disconnected before finish playing
-            stream_avairable = False
+            stream_available = False
             break
 
     # print('Finished Playing...') # _FOR_DEBUG_
 
     playing.value = Playing.FINISH
 
-    if stream_avairable:
+    if stream_available:
         stream.stop_stream()
         stream.close()
     p.terminate()
@@ -120,7 +120,7 @@ class AudioPlayer:
             self.event.set()
 
     def pause_audio(self):
-        self.play.value = Play.PASUE
+        self.play.value = Play.PAUSE
         self.event.clear()
 
     def stop_audio(self):

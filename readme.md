@@ -10,7 +10,7 @@ This is a simple wav file player script.
 - Change volume.
 
 
-## Emvironment
+## Environments
 
 - Windows 11 Pro
 - Python 3.12.7  
