@@ -1,6 +1,6 @@
 # Simple wav file player
 
-This is a simple wav file player script.
+This is a simple wav file player script using Tkinter GUI.
 
 ## Features
 
