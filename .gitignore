@@ -2,6 +2,6 @@
 /.vscode/
 /__pycache__/
 
-workspace.code-workspace
+*.code-workspace
 
 *.wav
